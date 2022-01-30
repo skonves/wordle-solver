@@ -17,7 +17,8 @@
     "lint:prettier": "prettier -c .",
     "fix:prettier": "prettier -w .",
     "clean:coverage": "rimraf coverage",
-    "pretest": "run-s -s clean"
+    "pretest": "run-s -s clean",
+    "seed": "ts-node tools/seed.ts"
   },
   "keywords": [],
   "author": "",

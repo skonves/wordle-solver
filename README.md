@@ -6,6 +6,11 @@ It's a wordle solver
 
 ## How to:
 
+### Seed word lists
+
+1. Install all packages: `npm ci`
+1. Download seed data: `npm run seed`
+
 ### Run this project
 
 1.  Build the code: `npm run build`
