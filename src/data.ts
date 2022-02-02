@@ -20,12 +20,12 @@ export function ans(n: number): string {
   const aa = ['N', 'N', 'N', 'N', 'N'];
 
   for (let i = 0; i < 5; i++) {
-    const a = Math.floor(r / p[0]);
-    r %= p[0];
+    const a = Math.floor(r / p[i]);
+    r = r % p[i];
 
     if (a === 2) aa[i] = 'Y';
     if (a === 1) aa[i] = 'M';
   }
 
-  return aa.join();
+  return aa.join('');
 }
