@@ -5,6 +5,24 @@ import { check } from './data';
 const wordlist = readFileSync('wordle.txt').toString().split(EOL);
 export const len = wordlist.length;
 
+function math_max(arr: Iterable<number | undefined>): number {
+  let r = Number.MIN_SAFE_INTEGER;
+  for (const n of arr) if (n && n > r) r = n;
+  return r;
+}
+
+// function math_countOverTwo(arr: Iterable<number | undefined>) {
+//   let r = 0;
+//   for (const n of arr) if (n !== undefined && n > 2) r++;
+//   return r;
+// }
+
+// function math_count(arr: Iterable<number | undefined>) {
+//   let r = 0;
+//   for (const n of arr) if (n !== undefined) r++;
+//   return r;
+// }
+
 export function solve(
   solutions: Iterable<number> | null,
   exclude?: Set<number>,
@@ -12,23 +30,50 @@ export function solve(
   first: number;
   solutionsByAnswer: Map<number, Set<number>>;
 } {
-  let maxCount = Number.MIN_SAFE_INTEGER;
-  let first = Number.MIN_SAFE_INTEGER;
+  let smallestMax = Number.MAX_SAFE_INTEGER;
+  // let maxCount = Number.MIN_SAFE_INTEGER;
+  // let maxCountOverTwo = Number.MIN_SAFE_INTEGER;
+
+  let firstBySmallestMax = -1;
+  // let firstByMaxCount = -1;
+  // let firstByMaxCountOverTwo = -1;
+
   for (let g = 0; g < len; g++) {
+    if (exclude && exclude.has(g)) continue;
     const answers: number[] = [];
     if (solutions) {
-      for (const s of solutions) answers[check(s, g)] = 1;
+      for (const s of solutions) {
+        const c = check(s, g);
+        if (answers[c] === undefined) answers[c] = 0;
+        answers[c] += 1;
+        if (answers[c] > smallestMax) break;
+      }
     } else {
-      for (let s = 0; s < len; s++) answers[check(s, g)] = 1;
+      for (let s = 0; s < len; s++) {
+        const c = check(s, g);
+        if (answers[c] === undefined) answers[c] = 0;
+        answers[c] += 1;
+        if (answers[c] > smallestMax) break;
+      }
     }
-    let count = 0;
-    for (const a of answers) count += a || 0;
-
-    if (count > maxCount && (!exclude || !exclude.has(g))) {
-      first = g;
-      maxCount = count;
+    const max = math_max(answers);
+    if (max < smallestMax) {
+      firstBySmallestMax = g;
+      smallestMax = max;
     }
+    // const count = math_count(answers);
+    // if (count > maxCount) {
+    //   firstByMaxCount = g;
+    //   maxCount = count;
+    // }
+    // const countOverTwo = math_countOverTwo(answers);
+    // if (countOverTwo > maxCountOverTwo) {
+    //   firstByMaxCountOverTwo = g;
+    //   maxCountOverTwo = countOverTwo;
+    // }
   }
+
+  const first = firstBySmallestMax;
 
   const solutionsByAnswer = new Map<number, Set<number>>();
   if (solutions) {
