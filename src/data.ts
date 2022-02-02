@@ -20,14 +20,14 @@ export function word(n: number): string {
 export function ans(n: number): string {
   let r = n;
 
-  const aa = ['N', 'N', 'N', 'N', 'N'];
+  const aa = ['A', 'A', 'A', 'A', 'A'];
 
   for (let i = 0; i < 5; i++) {
     const a = Math.floor(r / p[i]);
     r = r % p[i];
 
-    if (a === 2) aa[i] = 'Y';
-    if (a === 1) aa[i] = 'M';
+    if (a === 2) aa[i] = 'C';
+    if (a === 1) aa[i] = 'P';
   }
 
   return aa.join('');

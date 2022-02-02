@@ -118,7 +118,7 @@ export function recurse(
           [ans(check(a, b))]: { guess: word(b), s: 1, d: d + 2 },
         },
       };
-    } else if (answer !== ans(242) /* YYYYY */) {
+    } else if (answer !== 'CCCCC') {
       answers[answer] = recurse(solve(solutions), solutions.size, d + 1);
     }
   }
