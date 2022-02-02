@@ -18,7 +18,8 @@
     "fix:prettier": "prettier -w .",
     "clean:coverage": "rimraf coverage",
     "pretest": "run-s -s clean",
-    "seed": "ts-node tools/seed.ts"
+    "tree-binary": "ts-node src/tree-binary.ts",
+    "build-data": "ts-node src/build-data.ts"
   },
   "keywords": [],
   "author": "",
