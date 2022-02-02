@@ -2,9 +2,12 @@ import { readFileSync } from 'node:fs';
 import { EOL } from 'node:os';
 
 const p = [81, 27, 9, 3, 1];
-const wordlist = readFileSync('wordle.txt').toString().split(EOL);
-const data = readFileSync('data.dat');
-const len = wordlist.length;
+
+export const wordlist = readFileSync(process.argv[2] || 'wordle.txt')
+  .toString()
+  .split(EOL);
+export const data = readFileSync('data.dat');
+export const len = wordlist.length;
 
 export function check(s: number, g: number): number {
   return data.readUInt8(s * len + g);

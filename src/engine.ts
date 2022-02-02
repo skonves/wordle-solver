@@ -1,9 +1,4 @@
-import { readFileSync } from 'node:fs';
-import { EOL } from 'node:os';
-import { ans, check, word } from './data';
-
-const wordlist = readFileSync('wordle.txt').toString().split(EOL);
-export const len = wordlist.length;
+import { ans, check, len, word } from './data';
 
 function math_max(arr: Iterable<number | undefined>): number {
   let r = Number.MIN_SAFE_INTEGER;

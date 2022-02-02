@@ -1,13 +1,10 @@
-import { readFileSync } from 'node:fs';
-import { EOL } from 'node:os';
+import { writeFileSync } from 'node:fs';
+import { len, wordlist } from './data';
 import { sec } from './utils';
 
 const start = process.hrtime();
 
 const p = [81, 27, 9, 3, 1];
-
-const wordlist = readFileSync('wordle.txt').toString().split(EOL);
-const len = wordlist.length;
 
 const data = Buffer.alloc(len * len);
 
@@ -21,6 +18,8 @@ for (let s = 0; s < len; s++) {
     data.writeUInt8(result, s * len + g);
   }
 }
+
+writeFileSync('data.dat', data);
 
 console.log(
   `memoized ${data.length} comparisons in `,

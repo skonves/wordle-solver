@@ -1,14 +1,15 @@
 import { writeFileSync } from 'node:fs';
 
-import { len, recurse, solve, TreeNode } from './engine';
+import { len } from './data';
+import { recurse, solve, TreeNode } from './engine';
 import { sec } from './utils';
 
 const start = process.hrtime();
 const tree = recurse(solve(null), len, 1);
+console.log('built in', sec(process.hrtime(start)), 'seconds');
 
-writeFileSync('tree-binary.json', JSON.stringify(tree!));
-const dur = process.hrtime(start);
-console.log('done in', sec(dur), 'seconds. max depth', maxDepth(tree!));
+writeFileSync('tree.json', JSON.stringify(tree));
+console.log(stats(tree));
 
 function* traverse(subtree: TreeNode): Iterable<TreeNode> {
   yield subtree;
@@ -19,10 +20,17 @@ function* traverse(subtree: TreeNode): Iterable<TreeNode> {
   }
 }
 
-function maxDepth(subtree: TreeNode): number {
-  let max = Number.MIN_SAFE_INTEGER;
+function stats(subtree: TreeNode): {
+  nodes: number;
+  histogram: Record<number, number>;
+} {
+  let nodes = 0;
+  const histogram: Record<number, number> = {};
+
   for (const n of traverse(subtree)) {
-    if (n.d > max) max = n.d;
+    nodes++;
+    if (histogram[n.d] === undefined) histogram[n.d] = 0;
+    histogram[n.d] += 1;
   }
-  return max;
+  return { nodes, histogram };
 }

@@ -18,7 +18,7 @@
     "fix:prettier": "prettier -w .",
     "clean:coverage": "rimraf coverage",
     "pretest": "run-s -s clean",
-    "tree-binary": "ts-node src/tree-binary.ts",
+    "build-tree": "ts-node src/build-tree.ts",
     "build-data": "ts-node src/build-data.ts"
   },
   "keywords": [],

@@ -132,3 +132,4 @@ dist
 lib/
 words/
 /data.dat
+/tree.json
