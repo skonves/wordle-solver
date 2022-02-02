@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { EOL } from 'node:os';
-import { check } from './data';
+import { ans, check, word } from './data';
 
 const wordlist = readFileSync('wordle.txt').toString().split(EOL);
 export const len = wordlist.length;
@@ -105,33 +105,35 @@ export function recurse(
   s: number,
   d: number,
 ): TreeNode {
-  const answers: Record<number, TreeNode> = {};
+  const answers: Record<string, TreeNode> = {};
 
-  for (const [answer, solutions] of input.solutionsByAnswer) {
+  for (const [aa, solutions] of input.solutionsByAnswer) {
+    const answer = ans(aa);
     if (solutions.size === 1) {
-      answers[answer] = { guess: Array.from(solutions)[0], s: 1, d: d + 1 };
+      const g: number = solutions.values().next().value;
+
+      answers[answer] = { guess: word(g), s: 1, d: d + 1 };
     } else if (solutions.size === 2) {
       const [a, b] = solutions;
       answers[answer] = {
         s: 2,
         d: d + 1,
-        guess: a,
+        guess: word(a),
         answers: {
-          [check(a, b)]: { guess: b, s: 1, d: d + 2 },
+          [ans(check(a, b))]: { guess: word(b), s: 1, d: d + 2 },
         },
       };
-    } else if (answer !== 242 /* YYYYY */) {
+    } else if (answer !== ans(242) /* YYYYY */) {
       answers[answer] = recurse(solve(solutions), solutions.size, d + 1);
     }
   }
 
-  return { guess: input.first, answers: answers, s, d };
+  return { guess: word(input.first), answers, s, d };
 }
 
 export type TreeNode = {
   s: number;
   d: number;
-  guess: number;
-  answers?: Record<number, TreeNode>;
-  exclude?: number[];
+  guess: string;
+  answers?: Record<string, TreeNode>;
 };
