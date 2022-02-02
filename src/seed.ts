@@ -65,7 +65,7 @@ function split(total: number) {
   let current = 0;
   const lengths = new Set<number>();
 
-  var lineReader = createInterface({
+  const lineReader = createInterface({
     input: createReadStream(all),
   });
 
@@ -100,13 +100,12 @@ function occurrences(chunk: string, find: string) {
 
   let n = 0;
   let pos = 0;
-  let step = find.length;
 
   while (true) {
     pos = chunk.indexOf(find, pos);
     if (pos >= 0) {
       ++n;
-      pos += step;
+      pos += find.length;
     } else break;
   }
   return n;
