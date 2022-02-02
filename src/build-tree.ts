@@ -1,6 +1,6 @@
 import { writeFileSync } from 'node:fs';
 
-import { len, recurse, solve, TreeNode } from './engine-binary';
+import { len, recurse, solve, TreeNode } from './engine';
 import { sec } from './utils';
 
 const start = process.hrtime();
