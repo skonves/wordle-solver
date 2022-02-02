@@ -9,7 +9,7 @@
     "lint": "run-s -s lint:*",
     "fix": "run-s -s fix:*",
     "clean:output": "rimraf lib",
-    "start": "node ./lib/index.js",
+    "start": "node ./lib/build-tree.js",
     "prebuild": "run-s -s clean lint",
     "build": "tsc",
     "lint:eslint": "eslint src/**/*.*",
@@ -18,7 +18,6 @@
     "fix:prettier": "prettier -w .",
     "clean:coverage": "rimraf coverage",
     "pretest": "run-s -s clean",
-    "build-tree": "ts-node src/build-tree.ts",
     "build-data": "ts-node src/build-data.ts"
   },
   "keywords": [],
