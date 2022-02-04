@@ -1,10 +1,10 @@
-import { appendFile } from 'node:fs/promises';
-import { createReadStream, mkdirSync } from 'node:fs';
-import * as https from 'node:https';
-import { URL } from 'node:url';
-import { createInterface } from 'node:readline';
-import { join } from 'node:path';
-import { EOL } from 'node:os';
+import { appendFile } from 'fs/promises';
+import { createReadStream, mkdirSync } from 'fs';
+import * as https from 'https';
+import { URL } from 'url';
+import { createInterface } from 'readline';
+import { join } from 'path';
+import { EOL } from 'os';
 
 const rimraf = require('rimraf');
 

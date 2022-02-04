@@ -1,4 +1,4 @@
-import { writeFileSync } from 'node:fs';
+import { writeFileSync } from 'fs';
 
 import { len } from './data';
 import { recurse, solve, TreeNode } from './engine';

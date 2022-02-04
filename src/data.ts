@@ -1,5 +1,5 @@
-import { readFileSync, writeFileSync } from 'node:fs';
-import { EOL } from 'node:os';
+import { readFileSync, writeFileSync } from 'fs';
+import { EOL } from 'os';
 
 export const p = [81, 27, 9, 3, 1];
 
