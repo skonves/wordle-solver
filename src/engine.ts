@@ -1,4 +1,7 @@
-import { ans, check, len, word } from './data';
+import { ans, check, len, loadData, loadWordList, word } from './data';
+
+loadWordList();
+loadData();
 
 function math_max(arr: Iterable<number | undefined>): number {
   let r = Number.MIN_SAFE_INTEGER;

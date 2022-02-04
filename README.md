@@ -4,18 +4,18 @@
 
 It's a wordle solver!
 
-This project generates a decision tree for solving Wordles without relying on guesswork or probability. The root node gives the best starting guess and the list of all possible answers given all possible solutions in the word list. Each answer contains another guess and another set of answers. Of the word list of 12972 entries, all but 34 can be found within 6 guesses.
+This project generates a decision tree for solving Wordles without relying on guesswork or probability. The root node gives the best starting guess and the list of all possible answers given all possible solutions in the word list. Each answer contains another guess and another set of answers. Of the word list of 12972 entries, all but 44 can be found within 6 guesses.
 
 | Guess (depth) | Nodes |
 | ------------- | ----- |
 | 1st           | 1     |
 | 2nd           | 173   |
-| 3rd           | 2488  |
-| 4th           | 7207  |
-| 5th           | 4666  |
-| 6th           | 711   |
-| 7th           | 33    |
-| 8th           | 1     |
+| 3rd           | 2553  |
+| 4th           | 7286  |
+| 5th           | 4514  |
+| 6th           | 686   |
+| 7th           | 39    |
+| 8th           | 5     |
 
 Answers follow the "absent," "present," "correct" terminology. Absent (A) means the letter is not in the solution, present (P) means the letter _is_ in the solution but not in the correct position, and correct (C) means the letter is in the correct position. For example, 🟩⬛⬛🟨🟨 would be encoded as CAAPP.
 
