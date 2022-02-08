@@ -18,7 +18,8 @@
     "fix:prettier": "prettier -w .",
     "clean:coverage": "rimraf coverage",
     "pretest": "run-s -s clean",
-    "build-data": "ts-node src/build-data.ts"
+    "build-data": "ts-node src/build-data.ts",
+    "entropy": "ts-node src/entropy.ts"
   },
   "keywords": [],
   "author": "",

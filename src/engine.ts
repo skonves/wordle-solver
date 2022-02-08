@@ -3,11 +3,25 @@ import { ans, check, len, loadData, loadWordList, word } from './data';
 loadWordList();
 loadData();
 
-function math_max(arr: Iterable<number | undefined>): number {
-  let r = Number.MIN_SAFE_INTEGER;
-  for (const n of arr) if (n && n > r) r = n;
-  return r;
+export function math_avgEntropy(
+  arr: Iterable<number | undefined>,
+  total: number,
+): number {
+  let entropy = 0;
+  let t = 0;
+  for (const n of arr) {
+    t++;
+    if (n) entropy += Math.log(n / total);
+  }
+
+  return -(entropy / t);
 }
+
+// function math_max(arr: Iterable<number | undefined>): number {
+//   let r = Number.MIN_SAFE_INTEGER;
+//   for (const n of arr) if (n && n > r) r = n;
+//   return r;
+// }
 
 // function math_countOverTwo(arr: Iterable<number | undefined>) {
 //   let r = 0;
@@ -28,37 +42,47 @@ export function solve(
   first: number;
   solutionsByAnswer: Map<number, Set<number>>;
 } {
-  let smallestMax = Number.MAX_SAFE_INTEGER;
+  let maxAvgEntropy = Number.MIN_SAFE_INTEGER;
+  // let smallestMax = Number.MAX_SAFE_INTEGER;
   // let maxCount = Number.MIN_SAFE_INTEGER;
   // let maxCountOverTwo = Number.MIN_SAFE_INTEGER;
 
-  let firstBySmallestMax = -1;
+  let firstByMaxAvgEntropy = -1;
+  // let firstBySmallestMax = -1;
   // let firstByMaxCount = -1;
   // let firstByMaxCountOverTwo = -1;
 
   for (let g = 0; g < len; g++) {
     if (exclude && exclude.has(g)) continue;
     const answers: number[] = [];
+    let count = 0;
     if (solutions) {
       for (const s of solutions) {
+        count++;
         const c = check(s, g);
         if (answers[c] === undefined) answers[c] = 0;
         answers[c] += 1;
-        if (answers[c] > smallestMax) break;
+        // if (answers[c] > smallestMax) break;
       }
     } else {
       for (let s = 0; s < len; s++) {
+        count++;
         const c = check(s, g);
         if (answers[c] === undefined) answers[c] = 0;
         answers[c] += 1;
-        if (answers[c] > smallestMax) break;
+        // if (answers[c] > smallestMax) break;
       }
     }
-    const max = math_max(answers);
-    if (max < smallestMax) {
-      firstBySmallestMax = g;
-      smallestMax = max;
+    const avgEntropy = math_avgEntropy(answers, count);
+    if (avgEntropy > maxAvgEntropy) {
+      firstByMaxAvgEntropy = g;
+      maxAvgEntropy = avgEntropy;
     }
+    // const max = math_max(answers);
+    // if (max < smallestMax) {
+    //   firstBySmallestMax = g;
+    //   smallestMax = max;
+    // }
     // const count = math_count(answers);
     // if (count > maxCount) {
     //   firstByMaxCount = g;
@@ -71,7 +95,9 @@ export function solve(
     // }
   }
 
-  const first = firstBySmallestMax;
+  const first = firstByMaxAvgEntropy;
+
+  if (firstByMaxAvgEntropy < 0) throw new Error('FAIL!!!');
 
   const solutionsByAnswer = new Map<number, Set<number>>();
   if (solutions) {
@@ -94,6 +120,7 @@ export function solve(
 
   return { first, solutionsByAnswer };
 }
+let maxd = 0;
 
 export function recurse(
   input: {
@@ -104,6 +131,8 @@ export function recurse(
   d: number,
 ): TreeNode {
   const answers: Record<string, TreeNode> = {};
+
+
 
   for (const [aa, solutions] of input.solutionsByAnswer) {
     const answer = ans(aa);
